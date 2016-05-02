@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1000">
-    <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">
+    <Grid Margin="0,-2,0,2">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Name="info" Margin="278,60,251,0" Width="463">
             Hello, WPF
         </TextBlock>
         <Button Padding="5" Width="100" Height="30" Background="#FF40F740" Click="Button_Click_1">THIS IS A BUTTON</Button>

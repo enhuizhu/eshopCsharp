@@ -25,7 +25,6 @@ namespace WpfApplication1
     {
         Printer posPrinter;
         private Font printFont;
-        private StreamReader streamToPrint;
 
         public MainWindow()
         {
@@ -35,59 +34,26 @@ namespace WpfApplication1
         // The PrintPage event is raised for each page to be printed.
         private void pd_PrintPage(object sender, PrintPageEventArgs ev)
         {
-            float linesPerPage = 0;
-            float yPos = 0;
-            int count = 0;
-            float leftMargin = ev.MarginBounds.Left;
-            float topMargin = ev.MarginBounds.Top;
-            string line = null;
-
-            // Calculate the number of lines per page.
-            linesPerPage = ev.MarginBounds.Height /
-               printFont.GetHeight(ev.Graphics);
-
-            // Print each line of the file.
-            while (count < linesPerPage &&
-               ((line = streamToPrint.ReadLine()) != null))
-            {
-                yPos = topMargin + (count *
-                   printFont.GetHeight(ev.Graphics));
-                ev.Graphics.DrawString(line, printFont, System.Drawing.Brushes.Black,
-                   leftMargin, yPos, new StringFormat());
-                count++;
-            }
-
-            // If more lines exist, print another page.
-            if (line != null)
-                ev.HasMorePages = true;
-            else
-                ev.HasMorePages = false;
+            ev.Graphics.DrawString("just a test", printFont, System.Drawing.Brushes.Black, 0, 0, new StringFormat());
+            ev.Graphics.DrawString("just a test2", printFont, System.Drawing.Brushes.Black, 0, printFont.GetHeight(ev.Graphics), new StringFormat());
+            return;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
             try
             {
-                streamToPrint = new StreamReader
-                   ("C:\\nodeApp\\server.js");
-                try
-                {
-                    printFont = new Font("Arial", 10);
-                    PrintDocument pd = new PrintDocument();
-                    pd.PrintPage += new PrintPageEventHandler
-                       (this.pd_PrintPage);
-                    pd.Print();
-                }
-                finally
-                {
-                    streamToPrint.Close();
-                }
+                printFont = new Font("Arial", 10);
+                PrintDocument pd = new PrintDocument();
+                pd.PrintPage += new PrintPageEventHandler
+                   (this.pd_PrintPage);
+                pd.Print();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+           
         }
     }
 
